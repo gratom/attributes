@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Tools;
 using UnityEngine;
 
-[Atr]
+[Assert]
 public class MyClass : MonoBehaviour
 {
     [SerializeField]
