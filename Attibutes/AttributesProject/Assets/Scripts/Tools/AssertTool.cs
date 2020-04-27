@@ -1,15 +1,13 @@
-﻿#if UNITY_EDITOR
-
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using System.Reflection;
 using System;
-using UnityEditor.SceneManagement;
 
 namespace Tools
 {
-    [AttributeUsage(AttributeTargets.Class)]
-    public class Assert : Attribute { }
+#if UNITY_EDITOR
+
+    using UnityEditor.SceneManagement;
 
     [InitializeOnLoad]
     public class AssertTool
@@ -38,7 +36,8 @@ namespace Tools
                             SerializeField atr = Attribute.GetCustomAttribute(field, typeof(SerializeField)) as SerializeField;
                             if (atr != null)
                             {
-                                if (serializedObject.FindProperty(field.Name).objectReferenceValue == null)
+                                if (serializedObject.FindProperty(field.Name).propertyType == SerializedPropertyType.ObjectReference &&
+                                    serializedObject.FindProperty(field.Name).objectReferenceValue == null)
                                 {
                                     Debug.LogErrorFormat(monoBehaviour.gameObject, monoBehaviour.gameObject.name + "." + field.Name + ", typeof " + field.FieldType.Name + " is null");
                                 }
@@ -50,6 +49,9 @@ namespace Tools
             Application.SetStackTraceLogType(LogType.Error, stackTraceLogType);
         }
     }
-}
 
 #endif
+
+    [AttributeUsage(AttributeTargets.Class)]
+    public class Assert : Attribute { }
+}
