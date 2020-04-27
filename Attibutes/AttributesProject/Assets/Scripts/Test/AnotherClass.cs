@@ -5,10 +5,7 @@ using UnityEngine;
 [Atr]
 public class AnotherClass : MonoBehaviour
 {
-    // Start is called before the first frame update
-    private void Start()
-    {
-    }
+    [SerializeField] private Animation anim;
 
     // Update is called once per frame
     private void Update()
